@@ -15,8 +15,8 @@ class TableAndGraphViewModel @Inject constructor(
         mutableListOf<TableAndGraphItem>().apply {
             add(TableAndGraphItem.Header)
             addAll(pointsResponse.points.map { TableAndGraphItem.PointItem(it) })
+            add(TableAndGraphItem.GraphItem(pointsResponse.points.sortedBy { it.x }))
         }
     )
     val tableAndGraphItems = _tableAndGraphItems.asStateFlow()
-
 }

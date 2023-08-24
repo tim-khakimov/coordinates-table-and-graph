@@ -7,4 +7,6 @@ sealed interface TableAndGraphItem {
     object Header : TableAndGraphItem
 
     data class PointItem(val point: Point) : TableAndGraphItem
+
+    data class GraphItem(val points: List<Point>) : TableAndGraphItem
 }

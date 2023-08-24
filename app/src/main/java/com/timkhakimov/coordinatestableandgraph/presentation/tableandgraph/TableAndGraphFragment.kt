@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -16,6 +15,7 @@ import com.timkhakimov.coordinatestableandgraph.presentation.core.lazyViewModel
 import com.timkhakimov.coordinatestableandgraph.presentation.tableandgraph.adapter.TableAndGraphAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
 
 class TableAndGraphFragment : Fragment() {
 

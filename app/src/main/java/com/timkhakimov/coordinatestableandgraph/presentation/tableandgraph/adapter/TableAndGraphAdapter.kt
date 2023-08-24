@@ -14,6 +14,7 @@ class TableAndGraphAdapter(
         return when (viewType) {
             TYPE_HEADER -> HeaderViewHolder.create(parent)
             TYPE_POINT -> PointItemViewHolder.create(parent)
+            TYPE_GRAPH -> GraphItemViewHolder.create(parent)
             else -> throw IllegalArgumentException("Unknown viewType $viewType")
         }
     }
@@ -24,6 +25,7 @@ class TableAndGraphAdapter(
     ) {
         when (val item = items[position]) {
             is TableAndGraphItem.PointItem -> (holder as PointItemViewHolder).bind(item.point)
+            is TableAndGraphItem.GraphItem -> (holder as GraphItemViewHolder).bind(item.points)
             else -> {
                 // Do nothing.
             }
@@ -36,11 +38,13 @@ class TableAndGraphAdapter(
         return when(items[position]) {
             TableAndGraphItem.Header -> TYPE_HEADER
             is TableAndGraphItem.PointItem -> TYPE_POINT
+            is TableAndGraphItem.GraphItem -> TYPE_GRAPH
         }
     }
 
     private companion object {
         const val TYPE_HEADER = 0
         const val TYPE_POINT = 1
+        const val TYPE_GRAPH = 2
     }
 }
