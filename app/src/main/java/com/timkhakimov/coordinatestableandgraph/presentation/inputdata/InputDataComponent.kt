@@ -9,4 +9,9 @@ import dagger.Component
 interface InputDataComponent {
 
     fun createViewModel(): InputDataViewModel
+
+    @Component.Factory
+    interface Factory {
+        fun create(appComponent: AppComponent): InputDataComponent
+    }
 }

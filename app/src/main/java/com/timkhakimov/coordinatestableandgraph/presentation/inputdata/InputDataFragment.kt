@@ -15,7 +15,7 @@ import com.timkhakimov.coordinatestableandgraph.R
 import com.timkhakimov.coordinatestableandgraph.appComponent
 import com.timkhakimov.coordinatestableandgraph.data.model.Response
 import com.timkhakimov.coordinatestableandgraph.databinding.FragmentInputDataBinding
-import com.timkhakimov.coordinatestableandgraph.presentation.TableAndGraphFragment.Companion.ARG_POINTS
+import com.timkhakimov.coordinatestableandgraph.presentation.tableandgraph.TableAndGraphFragment.Companion.ARG_POINTS
 import com.timkhakimov.coordinatestableandgraph.presentation.core.lazyViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,9 +26,7 @@ class InputDataFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val component: InputDataComponent by lazy {
-        DaggerInputDataComponent.builder()
-            .appComponent(appComponent())
-            .build()
+        DaggerInputDataComponent.factory().create(appComponent())
     }
 
     private val viewModel: InputDataViewModel by lazyViewModel {

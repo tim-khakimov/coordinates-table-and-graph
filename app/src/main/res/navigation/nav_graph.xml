@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/TableAndGraphFragment"
-        android:name="com.timkhakimov.coordinatestableandgraph.presentation.TableAndGraphFragment"
+        android:name="com.timkhakimov.coordinatestableandgraph.presentation.tableandgraph.TableAndGraphFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_table_and_graph"/>
 </navigation>

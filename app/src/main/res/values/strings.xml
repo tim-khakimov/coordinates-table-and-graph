@@ -51,5 +51,7 @@
     <string name="ok">OK</string>
     <string name="network_error">Ошибка сети, проверьте соединение и попробуйте снова</string>
     <string name="unknown_error">Произошла неизвестная ошибка. Попробуйте еще раз.</string>
+    <string name="x">X</string>
+    <string name="y">Y</string>
 
 </resources>
