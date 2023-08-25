@@ -13,12 +13,19 @@
 
         <action
             android:id="@+id/action_InputData_to_TableAndGraph"
-            app:destination="@id/TableAndGraphFragment" />
+            app:destination="@id/TableAndGraphFragment"
+            app:nullable="false" />
     </fragment>
 
     <fragment
         android:id="@+id/TableAndGraphFragment"
         android:name="com.timkhakimov.coordinatestableandgraph.presentation.tableandgraph.TableAndGraphFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_table_and_graph"/>
+        tools:layout="@layout/fragment_table_and_graph">
+
+        <argument
+            android:name="pointsResponse"
+            app:argType="com.timkhakimov.coordinatestableandgraph.data.model.PointsResponse"
+            app:nullable="false" />
+    </fragment>
 </navigation>

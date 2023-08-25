@@ -2,11 +2,11 @@ package com.timkhakimov.coordinatestableandgraph.presentation.inputdata
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +15,6 @@ import com.timkhakimov.coordinatestableandgraph.R
 import com.timkhakimov.coordinatestableandgraph.appComponent
 import com.timkhakimov.coordinatestableandgraph.data.model.Response
 import com.timkhakimov.coordinatestableandgraph.databinding.FragmentInputDataBinding
-import com.timkhakimov.coordinatestableandgraph.presentation.tableandgraph.TableAndGraphFragment.Companion.ARG_POINTS
 import com.timkhakimov.coordinatestableandgraph.presentation.core.lazyViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -76,10 +75,7 @@ class InputDataFragment : Fragment() {
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collectLatest {
                     findNavController().navigate(
-                        R.id.action_InputData_to_TableAndGraph,
-                        Bundle().apply {
-                            putSerializable(ARG_POINTS, it)
-                        }
+                        InputDataFragmentDirections.actionInputDataToTableAndGraph(it)
                     )
                 }
         }

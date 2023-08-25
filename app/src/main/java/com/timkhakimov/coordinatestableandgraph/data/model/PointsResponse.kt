@@ -1,7 +1,9 @@
 package com.timkhakimov.coordinatestableandgraph.data.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class PointsResponse(
     val points: List<Point>,
-) : Serializable
+) : Parcelable

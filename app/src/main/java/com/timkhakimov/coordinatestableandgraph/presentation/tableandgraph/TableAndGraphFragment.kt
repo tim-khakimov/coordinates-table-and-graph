@@ -9,7 +9,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.timkhakimov.coordinatestableandgraph.appComponent
-import com.timkhakimov.coordinatestableandgraph.data.model.PointsResponse
 import com.timkhakimov.coordinatestableandgraph.databinding.FragmentTableAndGraphBinding
 import com.timkhakimov.coordinatestableandgraph.presentation.core.lazyViewModel
 import com.timkhakimov.coordinatestableandgraph.presentation.tableandgraph.adapter.TableAndGraphAdapter
@@ -25,7 +24,7 @@ class TableAndGraphFragment : Fragment() {
     private val component: TableAndGraphComponent by lazy {
         DaggerTableAndGraphComponent.factory().create(
             appComponent(),
-            requireArguments().get(ARG_POINTS) as PointsResponse
+            TableAndGraphFragmentArgs.fromBundle(requireArguments()).pointsResponse
         )
     }
 
@@ -59,9 +58,5 @@ class TableAndGraphFragment : Fragment() {
                     binding.tableAndGraphRecyclerView.adapter = TableAndGraphAdapter(it)
                 }
         }
-    }
-
-    companion object {
-        const val ARG_POINTS = "ARG_POINTS"
     }
 }
