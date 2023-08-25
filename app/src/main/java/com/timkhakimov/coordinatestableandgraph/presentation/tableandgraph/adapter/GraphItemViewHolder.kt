@@ -41,8 +41,12 @@ class GraphItemViewHolder(
             },
             ""
         )
-        dataSet.color = Color.BLUE
-        dataSet.valueTextColor = Color.BLACK
+        with(dataSet) {
+            mode = LineDataSet.Mode.CUBIC_BEZIER
+            color = Color.BLUE
+            valueTextColor = Color.BLACK
+        }
+
         lineChart.data = LineData(dataSet)
         lineChart.invalidate()
     }
