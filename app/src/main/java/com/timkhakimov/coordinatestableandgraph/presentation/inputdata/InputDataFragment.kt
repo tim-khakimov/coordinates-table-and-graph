@@ -1,11 +1,14 @@
 package com.timkhakimov.coordinatestableandgraph.presentation.inputdata
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -36,17 +39,13 @@ class InputDataFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentInputDataBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.goButton.setOnClickListener {
-            viewModel.loadPoints(binding.inputDataEditText.text.toString())
-        }
+        setListeners()
         observeData()
     }
 
@@ -55,12 +54,29 @@ class InputDataFragment : Fragment() {
         _binding = null
     }
 
+    private fun setListeners() = with(binding) {
+        goButton.setOnClickListener {
+            hideKeyboard()
+            viewModel.onButtonClicked()
+        }
+        inputDataEditText.doAfterTextChanged {
+            viewModel.onTextInput(it.toString())
+        }
+    }
+
     private fun observeData() {
         lifecycleScope.launch {
             viewModel.loadingState
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collectLatest {
-                    binding.progressBar.isVisible = it
+                    binding.progressBarLayout.isVisible = it
+                }
+        }
+        lifecycleScope.launch {
+            viewModel.isEnabledButton
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collectLatest {
+                    binding.goButton.isEnabled = it
                 }
         }
         lifecycleScope.launch {
@@ -95,5 +111,12 @@ class InputDataFragment : Fragment() {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    private fun hideKeyboard() = with(requireActivity()) {
+        currentFocus?.let {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(it.windowToken, 0)
+        }
     }
 }

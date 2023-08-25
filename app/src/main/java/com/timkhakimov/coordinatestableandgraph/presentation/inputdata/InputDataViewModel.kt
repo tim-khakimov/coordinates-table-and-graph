@@ -12,6 +12,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,11 +30,14 @@ class InputDataViewModel @Inject constructor(
     private val _pointsResponseError = Channel<Response.Error<*>>()
     val pointsResponseError: Flow<Response.Error<*>> = _pointsResponseError.receiveAsFlow()
 
-    fun loadPoints(inputText: String) {
+    private val _inputText = MutableStateFlow("")
+    val isEnabledButton: Flow<Boolean> = _inputText.asStateFlow().map { it.isNotEmpty() }
+
+    fun onButtonClicked() {
         viewModelScope.launch {
             _loadingState.emit(true)
             pointsInteractor
-                .getPoints(inputText.toInt())
+                .getPoints(_inputText.value.toInt())
                 .onSuccess {
                     _pointsResponseSuccess.send(it)
                 }
@@ -44,5 +48,9 @@ class InputDataViewModel @Inject constructor(
                     _loadingState.emit(false)
                 }
         }
+    }
+
+    fun onTextInput(inputText: String) {
+        _inputText.value = inputText
     }
 }
